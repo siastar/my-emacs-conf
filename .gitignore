@@ -1,0 +1,12 @@
+#### Gitignore 
+
+## See
+## https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+##https://stackoverflow.com/questions/987142/make-gitignore-ignore-everything-except-a-few-files
+
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!init.el
