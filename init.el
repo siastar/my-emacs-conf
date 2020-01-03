@@ -35,6 +35,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;; MELPA CONFIGURATION ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; MELPA MANAGES EMACS ADD ONS (PACKAGES) ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;https://melpa.org/#/getting-started
 
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
@@ -77,43 +78,58 @@ There are two things you can do about this warning:
 		 company-quickhelp xref-js2 js2-refactor dummyparens company-tern ac-js2)))
 
 
- '(visible-bell 1)) ;;disables end of buffer sounds and replace it with top screen flash
+ ;;disables end of buffer sounds and replace it with top screen flash
+ '(visible-bell 1)
+ ) 
 
- '(show-paren-mode t)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;; VARIOUS SETTINGS  ;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; enable autopair for parens
+;; nested parens highlight with different colors
+ (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+;; highlights parens pairs when jone is selected
+ (show-paren-mode)
+
+;; enable autopair for parens - automatically closes opened paren
  (electric-pair-mode)
 
 ;; enable column number mode (visualize column number)
-(column-number-mode)
+ (column-number-mode)
 
 ;;highlight current line 
-(global-hl-line-mode t)
-
-;;highlight current line
-(set-face-background 'hl-line "#000000")
+ (global-hl-line-mode t)
 
 ;;autocompletion in emacs command line (for example when searching files to open)
-(ido-mode t)
+ (ido-mode t)
 
 ;;eventually undo change layouts but dunno how it works
-(winner-mode t)
+ (winner-mode t)
+
+;;truncate lines longer tha display
+(set-default 'truncate-lines t)
 
 ;;jump between buffers (standard editor tab style)
 ;;default keybindings are:[alt]+[up/down/right/left]  
 ;;https://www.emacswiki.org/emacs/WindMove
-(windmove-default-keybindings 'meta)
+ (windmove-default-keybindings 'meta)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;CUSTOM COLORS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;M-x customize-face
+;;M-x describe-face
+
 (custom-set-faces
 
  ;;https://github.com/jacktasia/beautiful-emacs/blob/master/init.org
- 
- '(js2-jsdoc-tag ((t (:foreground "yellow"))))
- 
+
+ ;;colored box on current line
+ '(hl-line ((t (:box (:line-width 1 :color "dark red" :style nil):background "#000000" :inherit (highlight)))))
+
+ ;; set of colors for nested parens
  '(rainbow-delimiters-depth-1-face ((t (:weight bold :foreground "yellow" :background "black"))))
  '(rainbow-delimiters-depth-2-face ((t (:weight bold :foreground "green" :background "black"))))
  '(rainbow-delimiters-depth-3-face ((t (:weight bold :foreground "cyan" :background "black"))))
@@ -124,18 +140,22 @@ There are two things you can do about this warning:
  '(rainbow-delimiters-depth-8-face ((t (:weight bold :foreground "violet" :background "black"))))
  '(rainbow-delimiters-depth-9-face ((t (:weight bold :foreground "violet" :background "black"))))
 
+ ;; set of colors for web-mode (html css)
  '(web-mode-html-tag-bracket-face ((t (:foreground "Gold"))))
  '(web-mode-html-tag-face ((t (:foreground "Gold"))))
  '(web-mode-html-attr-name-face ((t (:foreground "SpringGreen"))))
  '(web-mode-html-attr-value-face ((t (:foreground "DeepSkyBlue"))))
 
+ ;; set of colors for variables, functions a nd strings
  '(font-lock-variable-name-face ((t (:foreground "DarkTurquoise"))))
  '(font-lock-function-name-face ((t (:foreground "GreenYellow"))))
- '(font-lock-string-face ((t (:foreground "tan1")))) ;;yupn no -face here
+ '(font-lock-string-face ((t (:foreground "tan1")))) 
 
- '(js2-external-variable ((t (:foreground "LightPink1")))) ;;yupn no -face here
+ ;; set of colors for js2-mode (js files)
+ '(js2-external-variable ((t (:foreground "LightPink1")))) 
  '(js2-highlight-vars-face ((t (:foreground "Gold" :background "DarkViolet"))))
  '(js2-error ((t (:weight bold :foreground "Black" :background "Red"))))
+ '(js2-jsdoc-tag ((t (:foreground "yellow"))))
 
  )
 
@@ -165,18 +185,16 @@ There are two things you can do about this warning:
 ;;
 ;; https://github.com/DarthFennec/highlight-indent-guides
 ;;
+
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+;;(setq highlight-indent-guides-auto-enabled nil)
 (setq highlight-indent-guides-method 'character)
+;;(setq highlight-indent-guides-auto-character-face-perc 50)
+
+;;(set-face-foreground 'highlight-indent-guides-character-face "#050a20")
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;       TRUNC LONG LINES VISUALIZATION              ;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(set-default 'truncate-lines t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -189,7 +207,7 @@ There are two things you can do about this warning:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;     MAJOR MODES ACCORDING TO FILE TYPE            ;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;    START MAJOR MODES ACCORDING TO FILE TYPE          ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -300,7 +318,7 @@ There are two things you can do about this warning:
 ;;;;;;;;;;;;;;;;;                P R O J E C T I L E                ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;     PROJECT  TOOL    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;     PROJECT  TOOLS   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (projectile-mode +1)
@@ -372,14 +390,6 @@ There are two things you can do about this warning:
 (global-set-key [(meta shift up)]  'move-line-up)
 (global-set-key [(meta shift down)]  'move-line-down)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;            RAINBOW DELIMITERS MODE                ;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;To start the mode automatically in `js2-mode', add the following to your init file:
-  (add-hook 'js2-mode-hook #'rainbow-delimiters-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -388,21 +398,6 @@ There are two things you can do about this warning:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (Global-Set-Key (Kbd "C-C M C") 'Mc/Edit-Lines)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;  E N D  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
