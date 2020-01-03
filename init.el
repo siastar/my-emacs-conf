@@ -88,9 +88,21 @@ There are two things you can do about this warning:
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;            web-mode on .html docs                 ;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;                       EMMET                       ;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;(require 'emmet-mode)
+;;(add-to-list 'auto-mode-alist '("\\.html\\'" . emmet-mode))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;           WEB-MODE on .html docs                  ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -105,7 +117,22 @@ There are two things you can do about this warning:
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
-;;(set-face-attribute 'web-mode-css-rule-face nil :foreground "Pink3")
+
+;;https://stackoverflow.com/questions/39111683/change-html-tag-color-in-emacs-web-emmet-helm-mode
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; WEB-MODE CUSTOM COLORS 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun pk-web-mode-hook ()
+  "Hooks for Web mode."
+  (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground "Gold")
+  (set-face-attribute 'web-mode-html-tag-face nil :foreground "Gold")
+  (set-face-attribute 'web-mode-html-attr-name-face nil :foreground "SpringGreen")
+  (set-face-attribute 'web-mode-html-attr-value-face nil :foreground "DeepSkyBlue")
+  )
+(add-hook 'web-mode-hook  'pk-web-mode-hook)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -117,14 +144,69 @@ There are two things you can do about this warning:
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
-;;(add-hook 'major-mode-hook 'minor-mode-name)
-(add-hook 'js2-mode-hook 'js2-highlights-vars-mode)
-(add-hook 'js2-mode-hook 'js2-highlights-unused-variables-mode)
+;;;; template ;;; (add-hook 'major-mode-hook 'minor-mode-name)
 
+;;;(add-hook 'js2-mode-hook 'js2-highlights-vars-mode)
+;;;(add-hook 'js2-mode-hook 'js2-highlights-unused-variables-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;     JS2-MODE CUSTOM COLORS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun pk-js2-mode-hook () ;;note: pk-js2-mode-hook is the function given name, it could have been donald duck, it is called back at the end of the function itself
+  "Hooks for js2-mode."
+  (set-face-attribute 'font-lock-variable-name-face nil
+		      :foreground "DarkTurquoise")
+
+  (set-face-attribute 'font-lock-function-name-face nil
+		      :foreground "GreenYellow")
+
+  (set-face-attribute 'js2-external-variable nil
+		      :foreground "LightPink1")
+
+  (set-face-attribute 'js2-highlight-vars-face nil
+		      :foreground "Gold"
+		      :background "DarkViolet")
+  
+  (set-face-attribute 'font-lock-string-face nil
+		      :foreground "tan1")
+
+  (set-face-attribute 'rainbow-delimiters-base-face nil
+   		      :foreground "yellow"
+   		      )
+
+  (set-face-attribute 'rainbow-delimiters-depth-1-face nil
+		      :foreground "SpringGreen1"
+		      :background "gray10"
+		      :weight "heavy"
+		      )
+
+  ;; (set-face-attribute 'rainbow-delimiters-depth-2-face nil
+  ;; 		      :foreground "cyan"
+  ;; 		      ;;:background "gray10"
+  ;; 		      ;;:weight "heavy"
+  ;; 		      )
+
+ ;; (set-face-attribute 'rainbow-delimiters-depth-3-face nil
+ ;; 		      :foreground "red"
+ ;; 		      ;;:background "gray10"
+ ;; 		      ;;:weight "heavy"
+ ;; 		      )
+  
+ )
+
+(add-hook 'js2-mode-hook  'pk-js2-mode-hook)
+
+;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; JSX
 ;; Support for JSX is available via the derived mode `js2-jsx-mode'.
 ;; JSX support, use that mode instead:
 ;;(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
 ;;(add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -133,8 +215,8 @@ There are two things you can do about this warning:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;https://github.com/ankurdave/color-identifiers-mode
 
-(require 'color-identifiers-mode)
-(add-hook 'after-init-hook 'global-color-identifiers-mode)
+;; (require 'color-identifiers-mode)
+;; (add-hook 'after-init-hook 'global-color-identifiers-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;; ENABLE INDENTATION GUIDES ;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -211,48 +293,15 @@ There are two things you can do about this warning:
             (tool-bar-lines . 0)
             (width . 106)
             (height . 60)
-            (background-color . "#050a20")
-            (left . 50)
+            ;;(background-color . "#050a20")
+	    (background-color . "#000f1b")
+	    (left . 50)
             (top . 50)))
   (setq initial-frame-alist '( (tool-bar-lines . 0))))
 
 (setq default-frame-alist initial-frame-alist)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                                                     
-;; SPECIFIC SETTINGS                      
-;; 
 
-(setq-default cursor-type 'box)                    
-(set-cursor-color "#49ff33") 
-
-;; enable column number mode (visualize column number)
-(column-number-mode)
-
-;; enable parents pair
-(show-paren-mode)
-
-;; enable autopair for parens
-(electric-pair-mode)
-
-;;highlight current line 
-(global-hl-line-mode t)
-
-;;highlight current line
-(set-face-background 'hl-line "#000000")
-
-;;autocompletion in emacs command line (for example when searching files to open)
-(ido-mode t)
-
-;;eventually undo change layouts but dunno how it works
-(winner-mode t)
-
-;;jump between buffers (standard editor tab style)
-;;default keybindings are:[alt]+[up/down/right/left]  
-;;https://www.emacswiki.org/emacs/WindMove
-(windmove-default-keybindings 'meta)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -367,11 +416,9 @@ There are two things you can do about this warning:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;To start the mode automatically in `foo-mode', add the following to your init file:
-  (add-hook 'foo-mode-hook #'rainbow-delimiters-mode)
+;;To start the mode automatically in `js2-mode', add the following to your init file:
+  (add-hook 'js2-mode-hook #'rainbow-delimiters-mode)
 
-;;To start the mode automatically in most programming modes (Emacs 24 and above):
-  (add-hook 'Prog-mode-hook #'rainbow-delimiters-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -382,9 +429,46 @@ There are two things you can do about this warning:
 (Global-Set-Key (Kbd "C-C M C") 'Mc/Edit-Lines)
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                                                     
+;; VARIOUS PREFERENCES AND SETTINGS                      
+;; 
+
+(setq-default cursor-type 'box)                    
+(set-cursor-color "#49ff33") 
+
+;; enable column number mode (visualize column number)
+(column-number-mode)
+
+;; enable parents pair
+(show-paren-mode)
+
+;; enable autopair for parens
+(electric-pair-mode)
+
+;; enable rainbow-delimiter-mode
+
+;;highlight current line 
+(global-hl-line-mode t)
+
+;;highlight current line
+(set-face-background 'hl-line "#000000")
+
+;;autocompletion in emacs command line (for example when searching files to open)
+(ido-mode t)
+
+;;eventually undo change layouts but dunno how it works
+(winner-mode t)
+
+;;jump between buffers (standard editor tab style)
+;;default keybindings are:[alt]+[up/down/right/left]  
+;;https://www.emacswiki.org/emacs/WindMove
+(windmove-default-keybindings 'meta)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;  E N D  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
