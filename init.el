@@ -1,9 +1,9 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;  YTZE EMACS CONFIGURATION  ;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;   MY EMACS CONFIGURATION   ;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;  DECEMBER 2019  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;  JANUARY 2020   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                                                     ;;
@@ -32,39 +32,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;; DEFAULT SCRIPT ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(column-number-mode t)
- '(cua-mode t nil (cua-base))
- '(custom-enabled-themes (quote (deeper-blue)))
- '(font-lock-mode -1 t)
- '(font-use-system-font t)
- '(fringe-mode (quote (nil . 0)) nil (fringe))
- '(indicate-buffer-boundaries (quote left))
- '(package-selected-packages
-   (quote
-    (vscode-icon all-the-icons use-package rainbow-delimiters js2-highlight-vars
-		 emmet-mode dired-sidebar project-explorer projectile move-text company
-		 tern-auto-complete seq indent-guide autopair rjsx-mode jsx-mode react-snippets
-		 js-auto-beautify exec-path-from-shell json-mode web-mode flycheck powerline delight
-		 company-quickhelp xref-js2 js2-refactor dummyparens company-tern ac-js2)))
- '(show-paren-mode t)
- '(visible-bell 1)) ;;disables end of buffer sounds and replace it with top screen flash
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(js2-jsdoc-tag ((t (:foreground "yellow")))))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;; MELPA CONFIGURATION ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; MELPA MANAGES EMACS ADD ONS (PACKAGES) ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -88,6 +55,128 @@ There are two things you can do about this warning:
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;; DEFAULT SCRIPT ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(custom-set-variables
+
+ '(column-number-mode t)
+ '(cua-mode t nil (cua-base))
+ '(custom-enabled-themes (quote (deeper-blue)))
+ '(font-lock-mode -1 t)
+ '(font-use-system-font t)
+ '(fringe-mode (quote (nil . 0)) nil (fringe))
+ '(indicate-buffer-boundaries (quote left))
+ '(package-selected-packages
+   (quote
+    (vscode-icon all-the-icons use-package rainbow-delimiters js2-highlight-vars
+		 emmet-mode dired-sidebar project-explorer projectile move-text company
+		 tern-auto-complete seq indent-guide autopair rjsx-mode jsx-mode react-snippets
+		 js-auto-beautify exec-path-from-shell json-mode web-mode flycheck powerline delight
+		 company-quickhelp xref-js2 js2-refactor dummyparens company-tern ac-js2)))
+
+
+ '(visible-bell 1)) ;;disables end of buffer sounds and replace it with top screen flash
+
+ '(show-paren-mode t)
+
+;; enable autopair for parens
+ (electric-pair-mode)
+
+;; enable column number mode (visualize column number)
+(column-number-mode)
+
+;;highlight current line 
+(global-hl-line-mode t)
+
+;;highlight current line
+(set-face-background 'hl-line "#000000")
+
+;;autocompletion in emacs command line (for example when searching files to open)
+(ido-mode t)
+
+;;eventually undo change layouts but dunno how it works
+(winner-mode t)
+
+;;jump between buffers (standard editor tab style)
+;;default keybindings are:[alt]+[up/down/right/left]  
+;;https://www.emacswiki.org/emacs/WindMove
+(windmove-default-keybindings 'meta)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;CUSTOM COLORS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(custom-set-faces
+
+ ;;https://github.com/jacktasia/beautiful-emacs/blob/master/init.org
+ 
+ '(js2-jsdoc-tag ((t (:foreground "yellow"))))
+ 
+ '(rainbow-delimiters-depth-1-face ((t (:weight bold :foreground "yellow" :background "black"))))
+ '(rainbow-delimiters-depth-2-face ((t (:weight bold :foreground "green" :background "black"))))
+ '(rainbow-delimiters-depth-3-face ((t (:weight bold :foreground "cyan" :background "black"))))
+ '(rainbow-delimiters-depth-4-face ((t (:weight bold :foreground "violet" :background "black"))))
+ '(rainbow-delimiters-depth-5-face ((t (:weight bold :foreground "turquoise" :background "black"))))
+ '(rainbow-delimiters-depth-6-face ((t (:weight bold :foreground "tomato" :background "black"))))
+ '(rainbow-delimiters-depth-7-face ((t (:weight bold :foreground "salmon" :background "black"))))
+ '(rainbow-delimiters-depth-8-face ((t (:weight bold :foreground "violet" :background "black"))))
+ '(rainbow-delimiters-depth-9-face ((t (:weight bold :foreground "violet" :background "black"))))
+
+ '(web-mode-html-tag-bracket-face ((t (:foreground "Gold"))))
+ '(web-mode-html-tag-face ((t (:foreground "Gold"))))
+ '(web-mode-html-attr-name-face ((t (:foreground "SpringGreen"))))
+ '(web-mode-html-attr-value-face ((t (:foreground "DeepSkyBlue"))))
+
+ '(font-lock-variable-name-face ((t (:foreground "DarkTurquoise"))))
+ '(font-lock-function-name-face ((t (:foreground "GreenYellow"))))
+ '(font-lock-string-face ((t (:foreground "tan1")))) ;;yupn no -face here
+
+ '(js2-external-variable ((t (:foreground "LightPink1")))) ;;yupn no -face here
+ '(js2-highlight-vars-face ((t (:foreground "Gold" :background "DarkViolet"))))
+ '(js2-error ((t (:weight bold :foreground "Black" :background "Red"))))
+
+ )
+
+(setq-default cursor-type 'box)                    
+(set-cursor-color "#49ff33") 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;     BACKGROUND SETTINGS    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(if (display-graphic-p)
+    (setq initial-frame-alist
+          '(
+            (tool-bar-lines . 0)
+            (width . 106)
+            (height . 60)
+            ;;(background-color . "#050a20")
+	    (background-color . "#000f1b")
+	    (left . 50)
+            (top . 50)))
+  (setq initial-frame-alist '( (tool-bar-lines . 0))))
+
+(setq default-frame-alist initial-frame-alist)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;; ENABLE INDENTATION GUIDES ;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; https://github.com/DarthFennec/highlight-indent-guides
+;;
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+(setq highlight-indent-guides-method 'character)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;       TRUNC LONG LINES VISUALIZATION              ;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(set-default 'truncate-lines t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -98,11 +187,9 @@ There are two things you can do about this warning:
 ;;(require 'emmet-mode)
 ;;(add-to-list 'auto-mode-alist '("\\.html\\'" . emmet-mode))
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;           WEB-MODE on .html docs                  ;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;     MAJOR MODES ACCORDING TO FILE TYPE            ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -117,88 +204,11 @@ There are two things you can do about this warning:
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
-
-;;https://stackoverflow.com/questions/39111683/change-html-tag-color-in-emacs-web-emmet-helm-mode
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; WEB-MODE CUSTOM COLORS 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun pk-web-mode-hook ()
-  "Hooks for Web mode."
-  (set-face-attribute 'web-mode-html-tag-bracket-face nil :foreground "Gold")
-  (set-face-attribute 'web-mode-html-tag-face nil :foreground "Gold")
-  (set-face-attribute 'web-mode-html-attr-name-face nil :foreground "SpringGreen")
-  (set-face-attribute 'web-mode-html-attr-value-face nil :foreground "DeepSkyBlue")
-  )
-(add-hook 'web-mode-hook  'pk-web-mode-hook)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;            js2 mode on .js docs                   ;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;https://elpa.gnu.org/packages/js2-mode.html
-
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 ;;;; template ;;; (add-hook 'major-mode-hook 'minor-mode-name)
-
-;;;(add-hook 'js2-mode-hook 'js2-highlights-vars-mode)
-;;;(add-hook 'js2-mode-hook 'js2-highlights-unused-variables-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;     JS2-MODE CUSTOM COLORS
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun pk-js2-mode-hook () ;;note: pk-js2-mode-hook is the function given name, it could have been donald duck, it is called back at the end of the function itself
-  "Hooks for js2-mode."
-  (set-face-attribute 'font-lock-variable-name-face nil
-		      :foreground "DarkTurquoise")
-
-  (set-face-attribute 'font-lock-function-name-face nil
-		      :foreground "GreenYellow")
-
-  (set-face-attribute 'js2-external-variable nil
-		      :foreground "LightPink1")
-
-  (set-face-attribute 'js2-highlight-vars-face nil
-		      :foreground "Gold"
-		      :background "DarkViolet")
-  
-  (set-face-attribute 'font-lock-string-face nil
-		      :foreground "tan1")
-
-  (set-face-attribute 'rainbow-delimiters-base-face nil
-   		      :foreground "yellow"
-   		      )
-
-  (set-face-attribute 'rainbow-delimiters-depth-1-face nil
-		      :foreground "SpringGreen1"
-		      :background "gray10"
-		      :weight "heavy"
-		      )
-
-  ;; (set-face-attribute 'rainbow-delimiters-depth-2-face nil
-  ;; 		      :foreground "cyan"
-  ;; 		      ;;:background "gray10"
-  ;; 		      ;;:weight "heavy"
-  ;; 		      )
-
- ;; (set-face-attribute 'rainbow-delimiters-depth-3-face nil
- ;; 		      :foreground "red"
- ;; 		      ;;:background "gray10"
- ;; 		      ;;:weight "heavy"
- ;; 		      )
-  
- )
-
-(add-hook 'js2-mode-hook  'pk-js2-mode-hook)
-
-;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; JSX
@@ -206,27 +216,6 @@ There are two things you can do about this warning:
 ;; JSX support, use that mode instead:
 ;;(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
 ;;(add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;            color identifier mode                  ;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;https://github.com/ankurdave/color-identifiers-mode
-
-;; (require 'color-identifiers-mode)
-;; (add-hook 'after-init-hook 'global-color-identifiers-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;; ENABLE INDENTATION GUIDES ;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; https://github.com/DarthFennec/highlight-indent-guides
-;;
-(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-(setq highlight-indent-guides-method 'character)
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -282,25 +271,6 @@ There are two things you can do about this warning:
     (when (and eslint (file-executable-p eslint))
       (setq-local flycheck-javascript-eslint-executable eslint))))
 (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;     BACKGROUND SETTINGS    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(if (display-graphic-p)
-    (setq initial-frame-alist
-          '(
-            (tool-bar-lines . 0)
-            (width . 106)
-            (height . 60)
-            ;;(background-color . "#050a20")
-	    (background-color . "#000f1b")
-	    (left . 50)
-            (top . 50)))
-  (setq initial-frame-alist '( (tool-bar-lines . 0))))
-
-(setq default-frame-alist initial-frame-alist)
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -404,21 +374,12 @@ There are two things you can do about this warning:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;       TRUNC LONG LINES VISUALIZATION              ;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(set-default 'truncate-lines t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;            RAINBOW BRACKETS MODE                  ;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;            RAINBOW DELIMITERS MODE                ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;To start the mode automatically in `js2-mode', add the following to your init file:
   (add-hook 'js2-mode-hook #'rainbow-delimiters-mode)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -429,43 +390,18 @@ There are two things you can do about this warning:
 (Global-Set-Key (Kbd "C-C M C") 'Mc/Edit-Lines)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                                                     
-;; VARIOUS PREFERENCES AND SETTINGS                      
-;; 
 
-(setq-default cursor-type 'box)                    
-(set-cursor-color "#49ff33") 
 
-;; enable column number mode (visualize column number)
-(column-number-mode)
 
-;; enable parents pair
-(show-paren-mode)
 
-;; enable autopair for parens
-(electric-pair-mode)
 
-;; enable rainbow-delimiter-mode
 
-;;highlight current line 
-(global-hl-line-mode t)
 
-;;highlight current line
-(set-face-background 'hl-line "#000000")
 
-;;autocompletion in emacs command line (for example when searching files to open)
-(ido-mode t)
 
-;;eventually undo change layouts but dunno how it works
-(winner-mode t)
 
-;;jump between buffers (standard editor tab style)
-;;default keybindings are:[alt]+[up/down/right/left]  
-;;https://www.emacswiki.org/emacs/WindMove
-(windmove-default-keybindings 'meta)
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
