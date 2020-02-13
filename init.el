@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;   MY EMACS CONFIGURATION   ;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;  JANUARY 2020   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;  FEBRUARY 2020  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                                                     ;;
@@ -12,7 +12,7 @@
 ;;                             ! . !     ! . !                         ;;
 ;;                               ^^^^^^^^^ ^                           ;;
 ;;                             ^             ^                         ;;
-;;                           ^  (0)       (0)  ^                       ;;
+;;                           ^  ((0))   ((0))  ^                       ;;
 ;;                          ^        ""         ^                      ;;
 ;;                         ^   ***************    ^                    ;;
 ;;                       ^   *                 *   ^                   ;;
@@ -61,9 +61,11 @@ There are two things you can do about this warning:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (custom-set-variables
-
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(cua-mode t nil (cua-base))
  '(custom-enabled-themes (quote (deeper-blue)))
  '(font-lock-mode -1 t)
  '(font-use-system-font t)
@@ -71,20 +73,16 @@ There are two things you can do about this warning:
  '(indicate-buffer-boundaries (quote left))
  '(package-selected-packages
    (quote
-    (vscode-icon all-the-icons use-package rainbow-delimiters js2-highlight-vars
-		 emmet-mode dired-sidebar project-explorer projectile move-text company
-		 tern-auto-complete seq indent-guide autopair rjsx-mode jsx-mode react-snippets
-		 js-auto-beautify exec-path-from-shell json-mode web-mode flycheck powerline delight
-		 company-quickhelp xref-js2 js2-refactor dummyparens company-tern ac-js2)))
-
-
- ;;disables end of buffer sounds and replace it with top screen flash
- '(visible-bell 1)
- ) 
+    (vscode-icon all-the-icons use-package rainbow-delimiters js2-highlight-vars emmet-mode dired-sidebar project-explorer projectile move-text company tern-auto-complete seq indent-guide autopair rjsx-mode jsx-mode react-snippets js-auto-beautify exec-path-from-shell json-mode web-mode flycheck powerline delight company-quickhelp xref-js2 js2-refactor dummyparens company-tern ac-js2)))
+ '(show-paren-mode t)
+ '(standard-indent 2)
+ '(visible-bell 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; VARIOUS SETTINGS  ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq-default c-basic-offset 2)
 
 ;; nested parens highlight with different colors
  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
@@ -113,23 +111,38 @@ There are two things you can do about this warning:
 ;;jump between buffers (standard editor tab style)
 ;;default keybindings are:[alt]+[up/down/right/left]  
 ;;https://www.emacswiki.org/emacs/WindMove
- (windmove-default-keybindings 'meta)
+(windmove-default-keybindings 'meta)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;CUSTOM COLORS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;;M-x customize-face
 ;;M-x describe-face
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; vertical bar 
+;; (set-face-background 'fringe "#44452") 
+;;
+;;active/inactive window fringe color scheme
+ 
 (custom-set-faces
-
- ;;https://github.com/jacktasia/beautiful-emacs/blob/master/init.org
-
- ;;colored box on current line
- '(hl-line ((t (:box (:line-width 1 :color "dark red" :style nil):background "#000000" :inherit (highlight)))))
-
- ;; set of colors for nested parens
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(font-lock-function-name-face ((t (:foreground "GreenYellow"))))
+ '(font-lock-string-face ((t (:foreground "tan1"))))
+ '(font-lock-variable-name-face ((t (:foreground "DarkTurquoise"))))
+ '(hl-line ((t (:box (:line-width 1 :color "dark red" :style nil) :background "#000000" :inherit (highlight)))))
+ '(js2-error ((t (:weight bold :foreground "Black" :background "Red"))))
+ '(js2-external-variable ((t (:foreground "LightPink1"))))
+ '(js2-highlight-vars-face ((t (:foreground "Gold" :background "DarkViolet"))))
+ '(js2-jsdoc-tag ((t (:foreground "yellow"))))
+ '(js2-function-call ((t (:foreground "orchid1"))))
+ '(js2-external-variable ((t (:foreground "azure1" :background "red4"))))
+ '(js2-object-property ((t (:foreground "aquamarine1"))))
+ '(mode-line ((t (:box (:line-width 1 :color "green" :style released-button) :foreground "yellow" :background "gray5"))))
+ '(mode-line-inactive ((t (:background "gray30" :foreground "gray50"))))
  '(rainbow-delimiters-depth-1-face ((t (:weight bold :foreground "yellow" :background "black"))))
  '(rainbow-delimiters-depth-2-face ((t (:weight bold :foreground "green" :background "black"))))
  '(rainbow-delimiters-depth-3-face ((t (:weight bold :foreground "cyan" :background "black"))))
@@ -139,29 +152,41 @@ There are two things you can do about this warning:
  '(rainbow-delimiters-depth-7-face ((t (:weight bold :foreground "salmon" :background "black"))))
  '(rainbow-delimiters-depth-8-face ((t (:weight bold :foreground "violet" :background "black"))))
  '(rainbow-delimiters-depth-9-face ((t (:weight bold :foreground "violet" :background "black"))))
-
- ;; set of colors for web-mode (html css)
- '(web-mode-html-tag-bracket-face ((t (:foreground "Gold"))))
- '(web-mode-html-tag-face ((t (:foreground "Gold"))))
+ '(rjsx-tag ((t (:foreground "Gold"))))
+ '(rjsx-tag-bracket-face ((t (:foreground "Gold"))))
  '(web-mode-html-attr-name-face ((t (:foreground "SpringGreen"))))
  '(web-mode-html-attr-value-face ((t (:foreground "DeepSkyBlue"))))
+ '(web-mode-html-tag-bracket-face ((t (:foreground "Gold"))))
+ '(web-mode-html-tag-face ((t (:foreground "Gold")))))
 
- ;; set of colors for variables, functions a nd strings
- '(font-lock-variable-name-face ((t (:foreground "DarkTurquoise"))))
- '(font-lock-function-name-face ((t (:foreground "GreenYellow"))))
- '(font-lock-string-face ((t (:foreground "tan1")))) 
-
- ;; set of colors for js2-mode (js files)
- '(js2-external-variable ((t (:foreground "LightPink1")))) 
- '(js2-highlight-vars-face ((t (:foreground "Gold" :background "DarkViolet"))))
- '(js2-error ((t (:weight bold :foreground "Black" :background "Red"))))
- '(js2-jsdoc-tag ((t (:foreground "yellow"))))
-
- )
+;;buffer name font color
+ (set-face-attribute 'mode-line-buffer-id nil :foreground "orange")
 
 (setq-default cursor-type 'box)                    
 (set-cursor-color "#49ff33") 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;     CUSTOM KEYBINDING      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun revert-buffer-no-confirm ()
+    ;;"Revert buffer without confirmation."
+    (interactive)
+    (revert-buffer :ignore-auto :noconfirm))
+
+(global-set-key (kbd "C-c rev") 'revert-buffer-no-confirm )
+
+(global-set-key (kbd "C-c cr") 'comment-region) 
+(global-set-key (kbd "C-c ur") 'uncomment-region) 
+(global-set-key (kbd "C-c jj") 'web-beautify-js )
+(global-set-key (kbd "C-c hh") 'web-beautify-html )
+(global-set-key (kbd "C-c cc") 'web-beautify-css )
+
+(global-set-key (kbd "C-c www") (lambda () (interactive) (web-mode) (rjsx-mode) (emmet-mode)))
+
+;; Source: http://www.emacswiki.org/emacs-en/download/misc-cmds.el
+
+;;indent_size
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;     BACKGROUND SETTINGS    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -189,9 +214,10 @@ There are two things you can do about this warning:
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 ;;(setq highlight-indent-guides-auto-enabled nil)
 (setq highlight-indent-guides-method 'character)
-;;(setq highlight-indent-guides-auto-character-face-perc 50)
 
-;;(set-face-foreground 'highlight-indent-guides-character-face "#050a20")
+
+
+
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -379,15 +405,20 @@ There are two things you can do about this warning:
 (global-set-key [(meta shift up)]  'move-line-up)
 (global-set-key [(meta shift down)]  'move-line-down)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;                 keybinding                        ;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;            Multiple Cursors Mode                  ;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;; Multiple Cursors Mode  
+;; (Global-Set-Key (Kbd "C-C M C") 'Mc/Edit-Lines)
 
-(Global-Set-Key (Kbd "C-C M C") 'Mc/Edit-Lines)
+;; ;;Multiple Cursors Mode
+;; (global-set-key (kbd "<f12>") 'nocomments-mode)
 
+;; comment region
+;; (global-set-key (kbd "C-c i") #'comment-region)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;  E N D  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
