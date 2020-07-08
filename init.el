@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;   MY EMACS CONFIGURATION   ;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;  FEBRUARY 2020  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  JULYY 2020  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                                                     ;;
@@ -35,6 +35,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;; MELPA CONFIGURATION ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; MELPA MANAGES EMACS ADD ONS (PACKAGES) ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;last added company mode for all buffers
+
 ;;https://melpa.org/#/getting-started
 
 (require 'package)
@@ -73,7 +76,7 @@ There are two things you can do about this warning:
  '(indicate-buffer-boundaries (quote left))
  '(package-selected-packages
    (quote
-    (vscode-icon all-the-icons use-package rainbow-delimiters js2-highlight-vars emmet-mode dired-sidebar project-explorer projectile move-text company tern-auto-complete seq indent-guide autopair rjsx-mode jsx-mode react-snippets js-auto-beautify exec-path-from-shell json-mode web-mode flycheck powerline delight company-quickhelp xref-js2 js2-refactor dummyparens company-tern ac-js2)))
+    (company-ctags js-react-redux-yasnippets company-ycmd company-ycm flycheck-ycmd format-all magit vscode-icon all-the-icons use-package rainbow-delimiters js2-highlight-vars emmet-mode dired-sidebar project-explorer projectile move-text company tern-auto-complete seq indent-guide autopair rjsx-mode jsx-mode react-snippets js-auto-beautify exec-path-from-shell json-mode web-mode flycheck powerline delight company-quickhelp xref-js2 js2-refactor dummyparens company-tern ac-js2)))
  '(show-paren-mode t)
  '(standard-indent 2)
  '(visible-bell 1))
@@ -136,10 +139,9 @@ There are two things you can do about this warning:
  '(hl-line ((t (:box (:line-width 1 :color "dark red" :style nil) :background "#000000" :inherit (highlight)))))
  '(js2-error ((t (:weight bold :foreground "Black" :background "Red"))))
  '(js2-external-variable ((t (:foreground "LightPink1"))))
+ '(js2-function-call ((t (:foreground "orchid1"))))
  '(js2-highlight-vars-face ((t (:foreground "Gold" :background "DarkViolet"))))
  '(js2-jsdoc-tag ((t (:foreground "yellow"))))
- '(js2-function-call ((t (:foreground "orchid1"))))
- '(js2-external-variable ((t (:foreground "azure1" :background "red4"))))
  '(js2-object-property ((t (:foreground "aquamarine1"))))
  '(mode-line ((t (:box (:line-width 1 :color "green" :style released-button) :foreground "yellow" :background "gray5"))))
  '(mode-line-inactive ((t (:background "gray30" :foreground "gray50"))))
@@ -181,6 +183,7 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-c jj") 'web-beautify-js )
 (global-set-key (kbd "C-c hh") 'web-beautify-html )
 (global-set-key (kbd "C-c cc") 'web-beautify-css )
+(global-set-key (kbd "C-c bb") 'format-all-buffer )
 
 (global-set-key (kbd "C-c www") (lambda () (interactive) (web-mode) (rjsx-mode) (emmet-mode)))
 
@@ -306,6 +309,17 @@ There are two things you can do about this warning:
     (when (and eslint (file-executable-p eslint))
       (setq-local flycheck-javascript-eslint-executable eslint))))
 (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;           ENABLE COMPANY MODE            ;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'after-init-hook 'global-company-mode)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
